@@ -6,27 +6,29 @@
 *************************************************************************/
 #include<stdio.h>
 #include"tree.h"
-void initTree(tree **t)
+
+void initTreeNode(tree **t)
 {
-	*t = NULL;
-	if(*t != NULL)
-	{
-		printf("init failed\n");
-	}else{
-		printf("init successed\n");
-	}
+	*t = (tree*)malloc(sizeof(tree));
+	(*t)->data = 0;
+	(*t)->lchild = NULL;
+	(*t)->rchild = NULL;
+	if((*t) != NULL)printf("success to init a node\n");
+	else printf("fail to init a node\n");
 	return;
 }
 
-void createTree(tree **t)
+void destoryTree(tree **t)
 {
-	tree *tmp = *t;
-	tmp->data = 0;
-	tmp->lchild = NULL;
-	tmp->rchild = NULL;
-	if(tmp != NULL)printf("success create a tree\n");
-	else printf("fail to create a tree\n");
-	return;
+	if(NULL == *t)
+		return;
+	if((*t)->lchild != NULL)
+		destoryTree(&((*t)->lchild));
+	if((*t)->rchild != NULL)
+		destoryTree(&((*t)->rchild));
+	free(*t);
+	*t = NULL;
+	printf("success to destory a treeNode\n");
 }
 
 void add_lchild(tree **t, tree *lchild)
@@ -51,25 +53,21 @@ void add_rchild(tree **t, tree *rchild)
 
 int tree_depth(tree *t)
 {
-	if(NULL == t)
-	{
-		return;
-	}
-	tree *tmp = t;
 	int l=0,r=0;
-	if(tmp->lchild != NULL)
+	if(t == NULL)
 	{
-		l = tree_depth(tmp->lchild);
-	}else{
-		l = l + 1;
+		return 0;
 	}
-	if(tmp->rchild != NULL)
-	{
-		r = tree_depth(tmp->rchild);
-	}else{
-		r = r + 1;
-	}
-	return l > r ? l : r;
+	l = tree_depth(t->lchild) + 1;
+	r = tree_depth(t->rchild) + 1;
+
+	return l>r?l:r;
 }
-
-
+void preTraverse(tree *t)
+{
+	if(t == NULL)
+		return;
+	printf("%d ",t->data);
+	preTraverse(t->lchild);
+	preTraverse(t->rchild);
+}
