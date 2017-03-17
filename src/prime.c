@@ -7,9 +7,10 @@
 *************************************************************************/
 #include<stdio.h>
 int numOfPrime();
-void main(void)
+int main(void)
 {
 	printf("The number of prime number is:%d.\n",numOfPrime());
+    return 0;
 }
 
 int numOfPrime()
