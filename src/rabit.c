@@ -12,12 +12,13 @@
  
 int numOfRabit(int n);
 
-void main()
+int main()
 {
    int n;
    printf("Input the number:");
    scanf("%d",&n);
    printf("the number of rabit is :%d.\n",numOfRabit(n));
+    return 0;
 }
  
  int numOfRabit(int n)
