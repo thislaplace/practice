@@ -10,9 +10,10 @@
 #include<stdio.h>
 void narPrintf();
 
-void main(void)
+int main(void)
 {
 	narPrintf();
+    return 0;
 }
 
 void narPrintf()
