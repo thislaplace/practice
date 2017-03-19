@@ -9,12 +9,12 @@
 #define _STACK_H
 #endif
 
-typedef strcut stack{
+typedef struct stack{
     char *data;
     struct stack *next;
 }stack;
 
-void initStack(stack *);
-int isEmpty(stack *);
-stack pushStack(satck *, stack *);
-stack popStack(stack *);
+void initStack(stack **top);
+int isEmpty(stack *top);
+stack *pushStack(stack *top, char *data);
+stack *popStack(stack *top);
