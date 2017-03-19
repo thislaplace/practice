@@ -5,24 +5,37 @@
  * * Time  : Thu 16 Mar 2017 06:18:37 PM CST
  * *************************************************************************/
 #include<stdio.h>
+#include<stdlib.h>
 #include"list.h"
 
-void  add(student **s , int num , char * name){
-	if(*s==NULL)
+void  add(student *s , int num , char * name){
+	if(s==NULL)
 		return;
-	student *tmp = *s;
 	student *newStudent;
-	while(tmp->next != NULL)
-		tmp = tmp->next;
+	while(s->next != NULL)
+		s = s->next;
 
 	newStudent = (student*)malloc(sizeof(student));
 	newStudent->num = num;
 	newStudent->name = name;
 	newStudent->next = NULL;
-	tmp->next = newStudent;
+	s->next = newStudent;
 	
 }
 
+void destory(student **s)
+{
+    student *tmp;
+    if((*s) != NULL)
+    {
+        tmp = *s;
+        free(*s);
+        *s = NULL;
+        destory(&((tmp)->next));
+    }else{
+        return;
+    }
+}
 
 void studentPrintf(student *s)
 {
@@ -40,9 +53,9 @@ void studentPrintf(student *s)
 }
 
 
-void sortStudent(student **s){
+void sortStudent(student *s){
 
-	if(*s == NULL)
+	if(s == NULL)
 		return;
 
 	student *pre;
@@ -53,7 +66,7 @@ void sortStudent(student **s){
 
 	for(i=1;i<n;++i){
 
-		pre = *s;
+		pre = s;
 		tmp = pre->next;
 		tmpNext = tmp->next;
 
@@ -73,11 +86,11 @@ void sortStudent(student **s){
 	}
 }
 
-void deletOddStu(student **s){
-	if(*s == NULL)
+void deletOddStu(student *s){
+	if(s == NULL)
 		return;
-	student *tmp = *s;
-	student *pre = *s;
+	student *tmp = s;
+	student *pre = s;
 	while(tmp != NULL){
 		if((tmp->num)%2 == 0){
 			pre = tmp;
@@ -102,25 +115,24 @@ void main(void){
 	char *a5 = "Name5";
 	char *a6 = "Name6";
 	char *head = "head";
-	student * s = NULL;
+	student s;
 
 
-	s = (student*)malloc(sizeof(student));
-	s->num = 0;
-	s->name =head;
-	s->next = NULL;
+	s.num = 0;
+	s.name =head;
+	s.next = NULL;
 	add(&s,5,a1);
 	add(&s,4,a2);
     add(&s,1,a3);
 	add(&s,3,a4);
     add(&s,6,a5);
 	add(&s,2,a6);
-	studentPrintf(s);
+	studentPrintf(&s);
 
 	sortStudent(&s);
-	studentPrintf(s);
+	studentPrintf(&s);
 
 	deletOddStu(&s);
-	studentPrintf(s);
-	free(s);
+	studentPrintf(&s);
+    destory(&(s.next));
 }
