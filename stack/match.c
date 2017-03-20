@@ -6,6 +6,7 @@
  ************************************************************************/
 #include<string.h>
 #include<stdio.h>
+#include<stdlib.h>
 #ifndef _STACK_H_
 #include"stack.h"
 #endif
@@ -13,7 +14,6 @@ int match(char *str)
 {
     stack *s;
     initStack(&s);
-    char c;
     while(*str != '\0')
     {
         switch(*str)
@@ -22,13 +22,12 @@ int match(char *str)
             case '[' :
             case '{' :
             {   
-                c = *str;
-                s = pushStack(s,&s);
+                s = pushStack(s,str);
                 break;
             }
             case ')' :
             {   
-                if((s->data) == '(')
+                if(*(s->data) == '(')
                    popStack(s);
                 else
                    return 0;
@@ -36,7 +35,7 @@ int match(char *str)
             }
             case ']' :
             {   
-                if((s->data) == '[')
+                if(*(s->data) == '[')
                    popStack(s);
                 else
                    return 0;
@@ -44,7 +43,7 @@ int match(char *str)
             }
             case '}' :
             {
-                if((s->data) == '{')
+                if(*(s->data) == '{')
                    popStack(s);
                 else
                    return 0;
@@ -69,9 +68,9 @@ int match(char *str)
 int main()
 {
     char *str;
-    str = (char *)malloc(1000);
+    str = (char *)malloc(128);
     printf("Please input some str:\n");
-    gets(str);
+    fgets(str,100,stdin);
     if(match(str))
         printf("Match\n");
     else
