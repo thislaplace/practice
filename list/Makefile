@@ -1,5 +1,4 @@
 cc=gcc
-
 list:list.o
 	cc -o list list.o
 list.o:list.c list.h
@@ -7,3 +6,4 @@ list.o:list.c list.h
 clean:
 	rm -rf *.o
 	rm -rf list
+
