@@ -5,6 +5,8 @@
 * Time  : Mon 20 Mar 2017 07:54:04 PM CST
 *************************************************************************/
 #include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 void monkeyKing(int monkeyNum)
 {
     int a[1000];
@@ -35,11 +37,28 @@ void monkeyKing(int monkeyNum)
     }
 }
 
+void input(int *monkeyNum)
+{
+    char *str;
+    str = (char*)malloc(150);
+    printf("请输入一个数字：\n");
+    fgets(str,128,stdin);
+    *monkeyNum = atoi(str);
+    free(str);
+    str = NULL;
+    if(monkeyNum > 0)
+    {}
+    else
+    {
+        printf("输入错误，请重新输入：\n");
+        input(monkeyNum);
+    }
+}
+
 int main()
 {
     int monkeyNum;
-    printf("输入猴子的个数：\n");
-    scanf("%d",&monkeyNum);
+    input(&monkeyNum);
     monkeyKing(monkeyNum);
     return 0;
 }
