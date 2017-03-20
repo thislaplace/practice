@@ -31,7 +31,7 @@ void monkeyKing(int monkeyNum)
     for(i=0; i<monkeyNum; ++i)
     {
         if(a[i] == 1)
-            printf("The King is %d.\n",i);
+            printf("The King is %d.\n",i+1);
     }
 }
 
