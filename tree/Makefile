@@ -9,4 +9,4 @@ main.o:main.c tree.h
 gmain:tree.c main.c tree.h
 	cc -g main.c tree.c -o gmain
 clean:
-	rm -rf *.o main gmain
+	-rm -f *.o main gmain
