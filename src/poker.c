@@ -36,6 +36,7 @@ int main()
 
     for(i=1; i<14; ++i)
     printf("%d ",a[i]);
+    printf("\n");
 
     return 0;
 }
