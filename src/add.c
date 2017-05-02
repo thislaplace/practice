@@ -20,17 +20,11 @@ int main()
 }
 int result(int n)
 {
-    int numN=0,i;
-    
-    if(n == 1)
-        return 2;
-    else
+    int numN=0,i,s=0;
+    for(i=0; i<n ;++i)
     {
-        for(i=0; i<n ;++i)
-        {
-            numN = numN*10 + 2;
-        }
-        return numN + result(n-1);
+        s = s*10 + 2;
+        numN = numN + s;
     }
-    return 0;//防止编译器警告
+    return numN;
 }

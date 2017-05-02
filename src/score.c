@@ -20,6 +20,6 @@ int main()
 void rank(int score)
 {
     char grade;
-    grade = score >= 90 ? 'A' : (score >= 60 ? 'B' : 'C');//最垃圾的写法，但是题目这么要求没办法。
+    grade = score >= 90 ? 'A' : (score >= 60 ? 'B' : 'C');
     printf("Your score belongs to %c.\n",grade);
 }
