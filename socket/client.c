@@ -12,22 +12,32 @@
 #include <sys/socket.h>
 int main(){
     //创建套接字
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    char buffer[128];
+    char str[128];
+    int clnt_sock = socket(AF_INET, SOCK_STREAM, 0);
     //向服务器（特定的IP和端口）发起请求
     struct sockaddr_in client_addr;
     memset(&client_addr, 0, sizeof(client_addr));  //每个字节都用0填充
     client_addr.sin_family = AF_INET;  //使用IPv4地址
     client_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
     client_addr.sin_port = htons(1234);  //端口
-    connect(sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
+    while(1){
+        connect(clnt_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
 
-    //读取服务器传回的数据
-    char buffer[40];
-    read(sock, buffer, sizeof(buffer)-1);
+      
+        printf("me:");
+        fgets(buffer,128,stdin);
 
-    printf("Message form server: %s\n", buffer);
+        send(clnt_sock,buffer,sizeof(buffer),0);
+        recv(clnt_sock,str,sizeof(str),0);
+        printf("server:");
+        fputs(str,stdout);
 
-    //关闭套接字
-    close(sock);
+        //关闭套接字
+        memset(buffer,0x00,sizeof(buffer));
+        memset(buffer,0x00,sizeof(str));
+        close(clnt_sock);
+    }
+    
     return 0;
 }
