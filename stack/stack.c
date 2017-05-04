@@ -8,34 +8,36 @@
 #ifndef _STACK_H_
 #include"stack.h"
 #endif
-void initStack(stack **top)
+void initStack(stack **s)
 {
-    *top = (stack*)malloc(sizeof(stack));
-    (*top)->data = "top";
-    (*top)->next = NULL;
+    *s = (stack*)malloc(sizeof(stack));
+    (*s)->data = "bottom";
+    (*s)->next = NULL;
 }
 
-int isEmpty(stack *top)
+int isEmpty(stack *s)
 {
-    if(top->next == NULL)
+    if(s->next == NULL)
         return 1;
     else
         return 0;
 }
 
-stack *pushStack(stack *top, char *data)
+stack *pushStack(stack *s, char *data)
 {
     stack *newNode;
     newNode = (stack *)malloc(sizeof(stack));
     newNode->data = data;
-    newNode->next = top->next;
+    newNode->next = s;
     return newNode;
 }
 
-stack *popStack(stack *top)
+stack *popStack(stack *s)
 {
-    if(top->next == NULL)
+    if(s->next == NULL)
         return;
-    top = top->next;
-    return top;
+    stack *tmp = s;
+    s = s->next;
+    free(tmp);
+    return s;
 }

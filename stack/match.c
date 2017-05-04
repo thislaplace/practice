@@ -28,7 +28,7 @@ int match(char *str)
             case ')' :
             {   
                 if(*(s->data) == '(')
-                   popStack(s);
+                   s = popStack(s);
                 else
                    return 0;
                 break;
@@ -36,7 +36,7 @@ int match(char *str)
             case ']' :
             {   
                 if(*(s->data) == '[')
-                   popStack(s);
+                   s = popStack(s);
                 else
                    return 0;
                  break;
@@ -44,7 +44,7 @@ int match(char *str)
             case '}' :
             {
                 if(*(s->data) == '{')
-                   popStack(s);
+                   s = popStack(s);
                 else
                    return 0;
                 break;
@@ -54,14 +54,7 @@ int match(char *str)
         }
         str++;
     }
-    if(isEmpty(s))
-    {
-        return 1;
-    }
-    else 
-    {
-        return 0;
-    }
+        return isEmpty(s);
 }
 
 
