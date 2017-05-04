@@ -8,12 +8,12 @@
 void quicksort(int *a,int l,int r);
 int main()
 {
-    int a[4]={4,3,2,1};
+    int a[10]={42,323,32,231,32,54,798,34,896,67};
     int i = 0;
 
-    quicksort(a,0,3);
+    quicksort(a,0,9);
 
-    for(i=0; i<4; ++i)
+    for(i=0; i<10; ++i)
     printf("%8d",a[i]);
     printf("\n");
 
@@ -22,7 +22,7 @@ int main()
 
 void quicksort(int *a,int l,int r)
 {
-    if(l == r)
+    if(l >= r)
         return;
 
     int tmp = a[l];
@@ -36,7 +36,8 @@ void quicksort(int *a,int l,int r)
         
         if(l < r)
         {
-            a[l++] = a[r];
+            a[l] = a[r];
+            l++;
         }
 
         while((a[l] <= tmp)&&(l < r))
@@ -44,7 +45,8 @@ void quicksort(int *a,int l,int r)
 
         if(l < r)
         {
-            a[r--] = a[l];
+            a[r] = a[l];
+            r--;
         }
     }
 
