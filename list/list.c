@@ -19,8 +19,9 @@ void  add(student *s , int num , char * name){
 	newStudent->num = num;
 	newStudent->name = name;
 	newStudent->next = NULL;
-	s->next = newStudent;
-	
+    s->next = newStudent;
+
+    return;
 }
 
 void destory(student **s)
