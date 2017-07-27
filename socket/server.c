@@ -12,34 +12,31 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string.h>
-int main(){
-    //创建套接字
+int main()
+{
     int serv_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    int clnt_sock = 0;
-    //将套接字和IP、端口绑定
+    int client_sock = 0;
+    char str[128];
+
     struct sockaddr_in serv_addr;
-    memset(&serv_addr, 0, sizeof(serv_addr));  //每个字节都用0填充
-    serv_addr.sin_family = AF_INET;  //使用IPv4地址
-    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
-    serv_addr.sin_port = htons(1234);  //端口
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_addr.sin_port = htons(1234);
     bind(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
-    //进入监听状态，等待用户发起请求
-    //接收客户端请求
+
     listen(serv_sock, 20);
-    struct sockaddr_in clnt_addr;
-    socklen_t clnt_addr_size = sizeof(clnt_addr);
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size = sizeof(client_addr);
     while(1){
-      
+        client_sock = accept(serv_sock, (struct sockaddr*)&client_addr, &client_addr_size);
+        memset(str, 0, sizeof(str));
+        int strlen = recv(client_sock, str, sizeof(str), 0);
 
-        clnt_sock = accept(serv_sock, (struct sockaddr*)&clnt_addr, &clnt_addr_size);
-        printf("%d ",clnt_sock);
-
-        char str[128];
-        int strlen = recv(clnt_sock, str, sizeof(str), 0);
-        send(clnt_sock, str, strlen, 0);
-        //关闭套接字
-        memset(str,0x00,sizeof(str));
-        close(clnt_sock);
+        printf("%08x say: %s\n",client_addr.sin_addr.s_addr, str);
+        
+        send(client_sock, str, strlen, 0);
+        close(client_sock);
     }
     close(serv_sock);
     return 0;
