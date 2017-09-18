@@ -63,6 +63,7 @@ int tree_depth(tree *t)
 
 	return l>r?l:r;
 }
+
 void preTraverse(tree *t)
 {
 	if(t == NULL)

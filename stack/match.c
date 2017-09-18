@@ -54,7 +54,7 @@ int match(char *str)
         }
         str++;
     }
-        return isEmpty(s);
+    return isEmpty(s);
 }
 
 

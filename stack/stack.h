@@ -10,7 +10,7 @@
 #endif
 
 typedef struct stack{
-    char *data;
+    char data;
     struct stack *next;
 }stack;
 
