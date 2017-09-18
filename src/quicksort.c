@@ -10,12 +10,10 @@ int main()
 {
     int a[10]={42,323,32,231,32,54,798,34,896,67};
     int i = 0;
-
-    quicksort(a,0,9);
-
     for(i=0; i<10; ++i)
     printf("%8d",a[i]);
     printf("\n");
+    quicksort(a,0,9);
 
     return 0;
 }
@@ -51,6 +49,11 @@ void quicksort(int *a,int l,int r)
     }
 
     a[l] = tmp;
+
+    int i = 0;
+    for(i=0; i<10; ++i)
+    printf("%8d",a[i]);
+    printf("\n");
 
     quicksort(a,left,l-1);
     quicksort(a,r+1,right);

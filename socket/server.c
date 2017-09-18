@@ -22,21 +22,18 @@ int main()
     memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_addr.sin_port = htons(1234);
+    serv_addr.sin_port = htons(60111);
     bind(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 
     listen(serv_sock, 20);
     struct sockaddr_in client_addr;
     socklen_t client_addr_size = sizeof(client_addr);
+    int strlen;
     while(1){
         client_sock = accept(serv_sock, (struct sockaddr*)&client_addr, &client_addr_size);
         memset(str, 0, sizeof(str));
-        int strlen = recv(client_sock, str, sizeof(str), 0);
-
+        strlen = recv(client_sock, str, sizeof(str), 0);
         printf("%08x say: %s\n",client_addr.sin_addr.s_addr, str);
-        
-        send(client_sock, str, strlen, 0);
-        close(client_sock);
     }
     close(serv_sock);
     return 0;

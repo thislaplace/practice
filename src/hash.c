@@ -66,6 +66,51 @@ void insertElement(HASH_TABLE *HTable, int data)
 
 
 /*******************************
+ * del a element from the table
+ */
+void delNode(HASH_TABLE *table, int data)
+{
+    int key = getKey(data);
+    int flags = 0;
+    NODE *tmp = NULL;
+    NODE *tmpNext = NULL;
+    if(table->value[key] == NULL)
+        goto out;
+    tmp = table->value[key];
+    tmpNext = tmp->next;
+    if(tmp->data == data)
+    {
+        free(tmp);
+        tmp = NULL;
+        table->value[key] = tmpNext;
+        flags = 1;
+    }
+    else
+    {
+        while(tmpNext != NULL)
+        {
+            if(tmpNext->data == data)
+            {
+                tmp->next = tmpNext->next;
+                tmpNext->next = NULL;
+                free(tmpNext);
+                tmpNext = NULL;
+                flags = 1;
+                break;
+            }
+            tmpNext = tmpNext->next;
+        }
+    }
+    out:
+    if(flags == 1)
+        printf("del ok\n");
+    else
+        printf("no such node\n");
+    return;
+}
+
+
+/*******************************
  * traversal table
  */
 void traversalTable(HASH_TABLE *table)
@@ -136,6 +181,8 @@ int main()
     insertElement(table, 9);
     insertElement(table, 29);
     insertElement(table, 100);
+    traversalTable(table);
+    delNode(table, 19);
     traversalTable(table);
     destoryTable(&table);
 }

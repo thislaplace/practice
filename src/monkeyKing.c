@@ -9,7 +9,7 @@
 #include<stdlib.h>
 void monkeyKing(int monkeyNum)
 {
-    int a[1000];
+    int a[10000];
     int i, monkeyLeft=monkeyNum, count=0;
     for(i=0; i<monkeyNum; ++i)
     {
@@ -57,7 +57,7 @@ void input(int *monkeyNum)
 
 int main()
 {
-    int monkeyNum;
+    int monkeyNum; 
     input(&monkeyNum);
     monkeyKing(monkeyNum);
     return 0;
