@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 int main(){
     char buffer[128];
+    char Msg[130];
     int clnt_sock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in client_addr;
     memset(&client_addr, 0, sizeof(client_addr));
@@ -19,19 +20,13 @@ int main(){
     client_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
     client_addr.sin_port = htons(60111);
     while(!connect(clnt_sock, (struct sockaddr*)&client_addr, sizeof(client_addr)))
-    {
-        printf("try to connect to server\n");
-    }
     while(1){
-        memset(buffer, 0x0, sizeof(buffer));
+        bzero(Msg, sizeof(Msg));
         printf("me:");
-        fgets(buffer, sizeof(buffer), stdin);
-        char Msg[130] = {0};
-        sprintf(Msg, "%s", buffer);
+        fgets(Msg, sizeof(Msg), stdin);
         send(clnt_sock, Msg, strlen(Msg), 0);
     }
-    printf("over");
+
     close(clnt_sock);
-    
     return 0;
 }
