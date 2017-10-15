@@ -23,24 +23,16 @@ int arg_check(int num, char *str)
 {
     printf("%s\n", str);
     if(num < 3)
-    {
-	goto failed;
-    }
+        goto failed;
 
     if(strcmp("close", str) == 0)
-    {
-	return CLOSE;
-    }
+        return CLOSE;
     else if(strcmp("open", str) == 0)
-    {
-	return OPEN;
-    }
+        return OPEN;
     else
-    {
-	goto failed;
-    }
+        goto failed;
 
-failed:
+    failed:
     usage();
 }
 
@@ -88,7 +80,7 @@ int main(int argc, char **argv)
 	case OPEN:
             key = 0 - KEY;
 	    break;
-        default:
+    default:
 	    usage();
 	    break;
     }
