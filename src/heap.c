@@ -1,9 +1,9 @@
-/*********************************************
+/*
  * File  : heap.c
  * Author: laplace
  * Mail  : email
  * Time  : Fri 01 Sep 2017 01:07:01 AM EDT
- ********************************************/
+ */
 #include<stdio.h>
 typedef struct HeapSq
 {
@@ -13,7 +13,7 @@ typedef struct HeapSq
 }Heap;
 
 
-/********************************************
+/*
  * init heap
  */
 void initHeap(Heap HBT, int MS)
@@ -35,7 +35,7 @@ void initHeap(Heap HBT, int MS)
 }
 
 
-/*********************************************
+/*
  * insert a element to heap
  */
 void insertHeap(Heap *b, int x)
@@ -44,8 +44,7 @@ void insertHeap(Heap *b, int x)
     if(b->len == b->MaxSize)
     {
         int *p;
-        p = realloc(b->heap, 2*(b->MaxSize)*sizeof(int));
-        if(!p)
+        if(!(p = realloc(b->heap, 2*(b->MaxSize)*sizeof(int))))
         {
             printf("realloc failed\n");
             exit(-1);
@@ -71,7 +70,7 @@ void insertHeap(Heap *b, int x)
 }
 
 
-/*********************************************
+/*
  * main
  */
 void main()
