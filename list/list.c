@@ -24,18 +24,19 @@ void  add(student *s , int num , char * name){
     return;
 }
 
-void destory(student **s)
+void destory(student *s)
 {
-    student *tmp;
-    if((*s) != NULL)
+    if (s == NULL)
     {
-        tmp = *s;
-        free(*s);
-        *s = NULL;
-        destory(&((tmp)->next));
-    }else{
         return;
     }
+
+    if(s->next != NULL)
+    {
+        destory(s->next);
+    }
+
+    free(s);
 }
 
 void studentPrintf(student *s)
@@ -88,19 +89,20 @@ void sortStudent(student *s){
 }
 
 void deletOddStu(student *s){
-	if(s == NULL)
-		return;
-	student *tmp = s;
-	student *pre = s;
-	while(tmp != NULL){
-		if((tmp->num)%2 == 0){
-			pre = tmp;
-			tmp = tmp->next;
-		}else{
-			pre->next = tmp->next;
-			tmp = pre->next;
-		}
-	}
+    if(s == NULL)
+    return;
+    student *tmp = s;
+    student *pre = s;
+    while(tmp != NULL){
+        if((tmp->num)%2 == 0){
+            pre = tmp;
+            tmp = tmp->next;
+        }else{
+            pre->next = tmp->next;
+            free(tmp);
+            tmp = pre->next;
+        }
+    }
 }
 
 
@@ -118,7 +120,6 @@ void main(void){
 	char *head = "head";
 	student s;
 
-
 	s.num = 0;
 	s.name =head;
 	s.next = NULL;
@@ -135,5 +136,5 @@ void main(void){
 
 	deletOddStu(&s);
 	studentPrintf(&s);
-    destory(&(s.next));
+    destory(s.next);
 }
