@@ -147,4 +147,6 @@ BOOL_t mid_traverse(BST_S *bst)
     mid_traverse(bst->pl_node);
     printf("%d\n", bst->iElement);
     mid_traverse(bst->pr_node);
+
+    return ERR_SUCCESS;
 }
